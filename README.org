@@ -1,0 +1,32 @@
+* Commands
+
+#+begin_src shell
+  # Create solution and projects
+  dotnet new sln --name Foo
+  dotnet new console -lang 'F#' --name Bar
+  dotnet new console -lang 'F#' --name Baz
+
+  # Configure solution
+  dotnet sln add Bar Baz
+
+  # Install "Microsoft.NET.Build.Containers" package in Bar project
+  (cd Bar ; dotnet add package Microsoft.NET.Build.Containers)
+
+  # Configure "IsPublishable" in Baz project
+  # ...
+
+  # Run
+  dotnet publish --os linux --arch x64 /t:PublishContainer -c Release
+
+  # MSBuild version 17.5.0+6f08c67f3 for .NET
+  #   Determining projects to restore...
+  #   Restored /Users/august.feng/repositories/gh/augustfengd/sdk-container-builds-464/Baz/Baz.fsproj (in 91 ms).
+  #   Restored /Users/august.feng/repositories/gh/augustfengd/sdk-container-builds-464/Bar/Bar.fsproj (in 91 ms).
+  #   Bar -> /Users/august.feng/repositories/gh/augustfengd/sdk-container-builds-464/Bar/bin/Release/net7.0/linux-x64/Bar.dll
+  #   Bar -> /Users/august.feng/repositories/gh/augustfengd/sdk-container-builds-464/Bar/bin/Release/net7.0/linux-x64/publish/
+  # /Users/august.feng/repositories/gh/augustfengd/sdk-container-builds-464/Baz/Baz.fsproj : error MSB4057: The target "PublishContainer" does not exist in the project.
+  #   Building image 'bar' with tags 1.0.0 on top of base image mcr.microsoft.com:443/dotnet/runtime:7.0
+  #   Pushed container 'bar:1.0.0' to local daemon
+#+end_src
+
+
